@@ -1,19 +1,55 @@
 import requests
+from tisane_example import example
 
-url = "https://api.apilayer.com/tisane/parse"
+api_key = "bZAnoqOOiKPxCSuohjteJ4DOnFGar07s"
 
-payload = {"language": "en", "content":"Fuck you, you piece of shit.", "settings": {"abuse" : True}}
-headers= {
-  "apikey": "bZAnoqOOiKPxCSuohjteJ4DOnFGar07s",
-  'content-type':'application/json'
-}
+abuse_types = ["personal_attack", "bigotry", "criminal_activity", "provocation", "data_leak"] # not banning profanity
+min_severity = {"personal_attack" : 0, "bigotry" : 1, "criminal_activity" : 0, "provocation" : 2, "data_leak" : 1, "profanity" : 0}
 
-response = requests.request("POST", url, headers=headers, json = payload)
+def fetch_abuse(message) -> list:
+    "Returns a list of all instances of abuse in message, in JSON format"
 
-status_code = response.status_code
-result = response.text
+    url = "https://api.apilayer.com/tisane/parse"
+    headers = {"apikey" : api_key, "content-type" : "application/json"}
+    json = {"language" : "da", "content" : message, "settings" : {"abuse" : True}}
 
-print(status_code)
-print(result)
+    response = requests.request("POST", url=url, headers=headers, json=json)
 
-#def checkProfanity(message):
+    if response.status_code != 200:
+        raise Exception(f"tisane api error. error code: {response.status_code}")
+
+    # Returns empty list, if there is no abuse.
+    try:
+        return response.json()["abuse"]
+    except:
+        return []
+
+def severity_to_number(severity):
+    if severity == "low":
+        return 0
+    if severity == "medium":
+        return 1
+    if severity == "high":
+        return 2
+    if severity == "extreme":
+        return 3
+
+def get_abuse(message):
+    #TODO remove example
+    #abuse = fetch_abuse(message)
+    abuse = example["abuse"]
+    is_abuse = False
+    reasons = []
+    
+    for item in abuse:
+        abuse_type = item["type"]
+        severity = severity_to_number(item["severity"])
+
+        if abuse_type in abuse_types:
+            if severity >= min_severity[abuse_type]:
+                is_abuse = True
+
+                if abuse_type not in reasons:
+                    reasons.append(abuse_type)
+
+    return [is_abuse, reasons]

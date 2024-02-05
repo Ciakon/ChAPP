@@ -1,28 +1,31 @@
 import gradio as gr
 
-
+user = 'Gregers'
+random_password = 'e234skdmfAA0'
 
 def login():
     print("your mother, respectfully")
-    random_password = 'e234skdmfAA0'
-    print(Password.value)
+    entered_password = password_field.value
+    print(entered_password)
         
 
 
-user = 'Gregers'
+
 
 with gr.Blocks() as startPage:
 
-    username_field = gr.Textbox(interactive=True, placeholder="Username")    
+    gr.Label("Log-in", show_label=False)
 
+    username_field = gr.Textbox(interactive=True, placeholder="Username", show_label=False)
+    password_field = gr.Textbox(interactive=True, placeholder="Password", show_label=False, type='password')
 
     login_btn = gr.Button("Login")
     login_btn.click(fn=login)
 
 
 
-    welcome_user = gr.Textbox(f"Welcome {user}!", container=True, scale=4, type='text')
-    Password = gr.Textbox(interactive=True, type='password')
+    welcome_user = gr.Textbox(f"Welcome {user}!", container=True, scale=4, type='text', visible=False)
+    
 
 
 

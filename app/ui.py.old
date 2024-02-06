@@ -1,0 +1,52 @@
+import gradio as gr
+
+#from firebase_project import *
+
+user = 'Gregers'
+random_password = '1234'
+
+# def login(username, password):
+#     print(username)
+    
+    
+#visibility = True
+    
+def login(username, password):
+    
+    # global username_field, password_field
+    # if(user == username and random_password == password):
+    #     visibility = False
+    #     print("W")
+    pass
+
+
+def hide(txtbox):
+    return gr.Textbox.update(visible=False)
+
+def hidebtn(txtbox):
+    return gr.Button.update(interactive=False)
+
+
+def chat(user, input, history):
+    return "L"
+
+with gr.Blocks() as startPage:
+    global username_field, password_field
+    gr.Label("Log-in", show_label=False)
+    
+    print("L")
+
+    username_field = gr.Textbox(interactive=False, placeholder="Username", show_label=False, visible=True)
+    password_field = gr.Textbox(interactive=True, placeholder="Password", show_label=False, visible=True, type='password')
+
+    login_btn = gr.Button("Login")
+    #login_btn.click(login, inputs=[username_field, password_field])
+    login_btn.click(hide, inputs=login_btn, outputs=login_btn)
+
+    chat_intercace = gr.ChatInterface(fn=chat)
+
+
+
+    
+
+startPage.launch(share=True)

@@ -69,12 +69,18 @@ def upload_message(user, message):
 
 def update_user(user,strikes):
 
-    data = {}
-    
+    #data = {}
+    #doc_ref = db.collection("Accounts").document(user)
+    #doc_ref.update({"Strikes"}:)
+        
     if strikes >= 3:
         doc_ref = db.collection("Accounts").document(user)
+        doc_ref.update({"Banned":True})
+    print("hej")
+        
 
-    doc_ref = db.collection('Accounts').document(data['Username'])
-    doc_ref.set(data)
+    #doc_ref = db.collection('Accounts').document(data['Username'])
+    #doc_ref.set(data)
 
 
+update_user("user1",3)

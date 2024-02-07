@@ -14,9 +14,11 @@ def login():
     logged_in = False
     while not logged_in:
 
+        #await input from user
         entered_username = db.get_user(input('username: '))
         entered_password = input('password: ')
 
+        #check correctness of username and password
         if(entered_username and entered_username['Password']==entered_password):
             current_user_data = entered_username
             print("Login success :)")
@@ -46,7 +48,7 @@ def update_chat():
     chat_length = len(chat_history)
 
     for i in range(chat_length-1, -1, -1):
-        print(i)
+        
     
         message_id = chat_history[i]["id"]
 
@@ -87,16 +89,9 @@ while typing:
         else:
             print(f"Your message has been blocked, because of the following: {reasons}.\nYou now have {current_user_data['Strikes']} strike(s).")
             local_strikes += 1
-            db.update_user(local_strikes)
+            db.update_user(current_user_data['Username'], local_strikes)
     
         
-
-
-
-
-
-
-
 
 
 

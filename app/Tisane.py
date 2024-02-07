@@ -4,7 +4,7 @@ from tisane_example import example
 api_key = "bZAnoqOOiKPxCSuohjteJ4DOnFGar07s"
 
 abuse_types = ["personal_attack", "bigotry", "criminal_activity", "provocation", "data_leak"] # not banning profanity
-min_severity = {"personal_attack" : 0, "bigotry" : 1, "criminal_activity" : 0, "provocation" : 2, "data_leak" : 1, "profanity" : 0}
+min_severity = {"personal_attack" : 0, "bigotry" : 1, "criminal_activity" : 0, "provocation" : 1, "data_leak" : 1, "profanity" : 0}
 
 def fetch_abuse(message) -> list:
     "Returns a list of all instances of abuse in message, in JSON format"
@@ -36,8 +36,8 @@ def severity_to_number(severity):
 
 def get_abuse(message):
     #TODO remove example
-    #abuse = fetch_abuse(message)
-    abuse = example["abuse"]
+    abuse = fetch_abuse(message)
+    #abuse = example["abuse"]
     is_abuse = False
     reasons = []
     

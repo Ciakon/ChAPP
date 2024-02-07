@@ -50,29 +50,31 @@ def get_user(Username):
 
 def get_chat():
     
-    return [{"user" : "user1", "content": "hej", "id" : 141340}, {"user" : "user2", "content": "L", "id" : 15380}]
+    doc_ref = db.collection("Chat").document("Chat")
+    doc = doc_ref.get()
+    
+    return doc.to_dict()["History"]
 
 def upload_message(user, message):
     message_id = random.randint(10000000, 99999999)
+
     data = {"user" : user, "content" : message, "id" : message_id}
+
     doc_ref = db.collection('Chat').document("Chat")
+    
     doc_ref.update({"History": firestore.ArrayUnion([data])})
 
-upload_message("user1", "OOFT")
 
 
-def update_user(strikes):
 
-    # data = [obj1, obj2]
+def update_user(user,strikes):
 
-    # for record in data:
-    #     doc_ref = db.collection('Accounts').document(record['Username'])
-    #     doc_ref.set(record)
-
-
+    data = {}
+    
     if strikes >= 3:
-        banned =True
+        doc_ref = db.collection("Accounts").document(user)
 
-    pass
+    doc_ref = db.collection('Accounts').document(data['Username'])
+    doc_ref.set(data)
 
-get_user("Noah")
+

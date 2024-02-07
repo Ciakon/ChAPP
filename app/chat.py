@@ -1,10 +1,11 @@
 import database as db
 import tisane as ts
-
-
+import time
 
 current_message_id = 0
 current_user_data = None
+
+
 
 def login():
     global current_user_data
@@ -44,7 +45,7 @@ def update_chat():
 
     chat_length = len(chat_history)
 
-    for i in range(chat_length, -1, -1):
+    for i in range(chat_length-1, -1, -1):
         print(i)
     
         message_id = chat_history[i]["id"]
@@ -64,28 +65,30 @@ def update_chat():
         print(f"{user}: {content}\n")
         
 
-#har vi brug for det ?!!?
-def send_message(txt, sender):
-    db.upload_message(sender, txt)
 
 login()
     
 
 start_chat()
+
 typing = True
 local_strikes=0
 
 while typing:
-    message = input()
+    update_chat()
+    time.sleep(0.05)
+    message = input(f"{current_user_data['Username']}: ")
     abuse, reasons = ts.get_abuse(message)
     if (current_user_data["Banned"]):
-        print ("You have been blocked, because you continuesly have written abusive messages.")
+        print ("You have been banned, because you continuesly have written abusive messages, and your message has not been sent.")
+    else:
         if (not abuse):
             db.upload_message(current_user_data['Username'], message)
         else:
             print(f"Your message has been blocked, because of the following: {reasons}.\nYou now have {current_user_data['Strikes']} strike(s).")
             local_strikes += 1
             db.update_user(local_strikes)
+    
         
 
 

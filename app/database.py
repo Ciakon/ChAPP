@@ -83,4 +83,4 @@ def update_user(user,strikes):
     #doc_ref.set(data)
 
 
-update_user("user1",3)
+update_user("user1",1)

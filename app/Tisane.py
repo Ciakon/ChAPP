@@ -1,10 +1,10 @@
 import requests
 from tisane_example import example
 
-api_key = "bZAnoqOOiKPxCSuohjteJ4DOnFGar07s"
+api_key = "CX1RaJccKqP9IjRKzJsc9C9YzjOWJ1hB"
 
-abuse_types = ["personal_attack", "bigotry", "criminal_activity", "provocation", "data_leak"] # not banning profanity
-min_severity = {"personal_attack" : 0, "bigotry" : 1, "criminal_activity" : 0, "provocation" : 1, "data_leak" : 1, "profanity" : 0}
+abuse_types = ["personal_attack", "bigotry", "criminal_activity", "provocation", "data_leak", "profanity"]
+min_severity = {"personal_attack" : 0, "bigotry" : 1, "criminal_activity" : 0, "provocation" : 1, "data_leak" : 0, "profanity" : 0}
 
 def fetch_abuse(message) -> list:
     "Returns a list of all instances of abuse in message, in JSON format"

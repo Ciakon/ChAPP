@@ -38,7 +38,7 @@ def start_chat():
         print(f"{message['user']}: {message['content']}\n")
         current_message_id = message["id"]
 
-def update_chat(fetch_cooldown = 5):
+def update_chat(fetch_cooldown = 3):
     global current_message_id
     while True:
 
@@ -70,12 +70,14 @@ def update_chat(fetch_cooldown = 5):
         time.sleep(fetch_cooldown)
         
 def type_in_chat():
+    global current_user_data
+
     typing = True
-    local_strikes=0
+    strikes = current_user_data["Strikes"]
 
     while typing:
         #message = input(f"{current_user_data['Username']}: ")
-        message = easygui.enterbox("Enter message here")
+        message = easygui.enterbox("Enter message here (Piletaster ødelægger programmet)")
 
         if message == None:
             continue
@@ -87,9 +89,10 @@ def type_in_chat():
             if (not abuse):
                 db.upload_message(current_user_data['Username'], message)
             else:
-                print(f"Your message has been blocked, because of the following: {reasons}.\nYou now have {current_user_data['Strikes']} strike(s).")
-                local_strikes += 1
-                db.update_user(current_user_data['Username'], local_strikes)
+                strikes += 1
+                print(f"Your message has been blocked, because of the following: {reasons}.\nYou now have {strikes} strike(s).")
+                db.update_user(current_user_data['Username'], strikes)
+                current_user_data = db.get_user(current_user_data["Username"])
 
 login()
 start_chat()

@@ -81,6 +81,3 @@ def update_user(user,strikes):
 
     #doc_ref = db.collection('Accounts').document(data['Username'])
     #doc_ref.set(data)
-
-
-update_user("user1",1)

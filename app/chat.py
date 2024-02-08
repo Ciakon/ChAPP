@@ -80,7 +80,10 @@ def type_in_chat():
         message = easygui.enterbox("Enter message here (Piletaster ødelægger programmet)")
 
         if message == None:
-            break
+            continue
+
+        if message == "%Stop%":
+            run = False
 
         abuse, reasons = ts.get_abuse(message)
         if (current_user_data["Banned"]):
@@ -103,5 +106,7 @@ t2 = threading.Thread(target=type_in_chat)
 t1.start()
 t2.start()
 
-while True:
+run = True
+
+while run:
     pass

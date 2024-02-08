@@ -80,7 +80,7 @@ def type_in_chat():
         message = easygui.enterbox("Enter message here (Piletaster ødelægger programmet)")
 
         if message == None:
-            continue
+            break
 
         abuse, reasons = ts.get_abuse(message)
         if (current_user_data["Banned"]):

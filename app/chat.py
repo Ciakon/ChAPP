@@ -76,6 +76,7 @@ def type_in_chat():
     strikes = current_user_data["Strikes"]
 
     while typing:
+        global run
         #message = input(f"{current_user_data['Username']}: ")
         message = easygui.enterbox("Enter message here (Piletaster ødelægger programmet)")
 

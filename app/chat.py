@@ -6,6 +6,7 @@ import threading
 
 current_message_id = 0
 current_user_data = None
+run = True
 
 def login():
     global current_user_data
@@ -77,14 +78,14 @@ def type_in_chat():
 
     while typing:
         global run
-        #message = input(f"{current_user_data['Username']}: ")
         message = easygui.enterbox("Enter message here (Piletaster ødelægger programmet)")
 
         if message == None:
             continue
 
-        if message == "%Stop%":
+        if message == "Stop":
             run = False
+            break
 
         abuse, reasons = ts.get_abuse(message)
         if (current_user_data["Banned"]):
@@ -107,7 +108,7 @@ t2 = threading.Thread(target=type_in_chat)
 t1.start()
 t2.start()
 
-run = True
+
 
 while run:
     pass

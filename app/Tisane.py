@@ -35,9 +35,9 @@ def severity_to_number(severity):
         return 3
 
 def get_abuse(message):
-    #TODO remove example
     abuse = fetch_abuse(message)
-    #abuse = example["abuse"]
+    #abuse = example["abuse"] Example to avoid using API key when debugging.
+
     is_abuse = False
     reasons = []
     
